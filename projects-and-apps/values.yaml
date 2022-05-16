@@ -7,7 +7,7 @@ clusters:
     # Name of the cluster (this must match what is defined for the cluster in ArgoCD)
     name: in-cluster
   dev:
-    server: https://192.168.39.135:8443
+    server: https://kubernetes.default.svc
     name: minikube
 
 
@@ -40,7 +40,7 @@ projects:
     pathPrefix: global-applications/namespaces
     # Specifies the repository that contains the deployment resources for this application
     # APPLICATION SPECIFIC NOTE: The namespaces "application" depends on this values.yaml file, so it co-exists in this repo
-    repoURL: https://github.com/ake13/argocd-app-configs.git
+    repoURL: git@github.com:ake13/argocd-app-configs.git
     # Don't create a namespace for this application
     # Usually you want this if the namespace already exists (e.g. you're deploying to a system namespace, or some other preexisting names)
     # or if your application is made of purely non-namespaced resources
@@ -55,7 +55,7 @@ projects:
   description: dsurdu-app2
   applications:
   - name: app1
-    repoURL: https://github.com/ake13/app1.git
+    repoURL: git@github.com:ake13/app1.git
     namespaceOverride: app1
     environments:
     - name: dev
@@ -66,7 +66,7 @@ projects:
   applications:
   - name: app2
 #    pathPrefix: 
-    repoURL: https://github.com/ake13/app2.git
+    repoURL: git@github.com:ake13/app2.git
     namespaceOverride: app2
     environments:
     - name: dev
