@@ -7,7 +7,7 @@ clusters:
     # Name of the cluster (this must match what is defined for the cluster in ArgoCD)
     name: in-cluster
   dev:
-    server: https://192.168.39.135
+    server: https://192.168.39.135:8443
     name: minikube
 
 
