@@ -56,8 +56,8 @@ That can be done via configuration like this:
 ```yaml
 - name: "my-project"
   dynatraceEnvs:
+  - dev
   - pte
-  - gclb-pte
   description: "Project for Me"
   applications:
   - ...
