@@ -1,0 +1,28 @@
+{{- range $project_index, $project := .Values.projects }}
+{{- range $application_index, $application := $project.applications }}
+{{- range $environment_index, $environment := $application.environments }}
+# Start Application: {{ $project.name }}-{{ $application.name }}-{{ $environment.name }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ $project.name }}-{{ $application.name }}-{{ $environment.name }}
+  namespace: argocd
+spec:
+  project: {{ $project.name }}
+  source:
+    repoURL: {{ $application.repoURL }}
+    targetRevision: HEAD
+    path: {{ if $application.pathPrefix }}{{ $application.pathPrefix }}/{{ $environment.name }}{{ else }}{{ $environment.name }}{{ end }}
+  destination:
+    server: {{ (get $.Values.clusters $environment.name).server }}
+    namespace: {{ if $application.namespaceOverride }}{{ $application.namespaceOverride }}{{ else }}{{ $project.name }}{{ end }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  ignoreDifferences: {{ $application.ignoreDifferences | default list | toJson }}
+# End Application: {{ $project.name }}-{{ $application.name }}-{{ $environment.name }}
+---    
+{{- end }}    
+{{- end }}
+{{- end }}

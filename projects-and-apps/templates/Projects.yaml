@@ -1,0 +1,32 @@
+{{- range $project_index, $project := .Values.projects }}
+# Start Project: {{ $project.name }}
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: {{ $project.name }}
+  namespace: argocd
+  # Finalizer that ensures that project is not deleted until it is not referenced by any application
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: {{ $project.description }}
+  # Allow manifests to deploy from any Git repos
+  sourceRepos:
+    - '*'
+  # Only permit applications to deploy to their project namespaces in the cluster
+  destinations:
+  {{- range $cluster_index, $cluster := $.Values.clusters }}
+    - namespace: {{ if $project.namespaceOverride }}{{ $project.namespaceOverride }}{{ else }}{{ $project.name }}*{{ end }}
+      server: {{ $cluster.server }}
+  {{- end }}
+  # Deny all cluster-scoped resources except for Namespaces, so that argo can create the namespace for the applications
+  clusterResourceWhitelist: {{- if not $project.clusterResourceWhitelistOverrides }} []
+  {{- else }}  
+  {{- range $clusterResourceWhitelistOverride_Index, $clusterResourceWhitelistOverride := $project.clusterResourceWhitelistOverrides }}
+    - group: '{{ $clusterResourceWhitelistOverride.group }}'
+      kind: {{ $clusterResourceWhitelistOverride.kind }}
+  {{- end }}     
+  {{- end }} 
+# End Project: {{ $project.name }}
+---
+{{- end }}
