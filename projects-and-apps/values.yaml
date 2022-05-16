@@ -51,7 +51,7 @@ projects:
     - name: dev
 
 
-- name: minerva
+- name: app1
   description: dsurdu-app2
   applications:
   - name: app1
@@ -61,7 +61,7 @@ projects:
     - name: dev
 
 
-- name: dsurdu-app2
+- name: app2
   description: dsurdu-app2
   applications:
   - name: app2
