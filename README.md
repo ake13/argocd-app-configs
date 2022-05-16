@@ -6,7 +6,7 @@ Repo for management of Argo projects and apps for non-prod environments.
 
 
 
-This repo consists of Helm resource definitions that allow us (SRE) to on-board/off-board projects, applications and what environments (clusters) those applications are deployed to.
+This repo consists of Helm resource definitions that allow us to on-board/off-board projects, applications and what environments (clusters) those applications are deployed to.
 
 ## How do I on-board/off-board applications/projects?
 
@@ -50,9 +50,6 @@ From this the configuration for this project should look something like:
     - name: pte
 ```
 
-## Dynatrace
-
-Dynatrace is installed in the PTE and GCLB-PTE clusters.  In order to turn on monitoring you first have to enable it at the project level.
 
 That can be done via configuration like this:
 
