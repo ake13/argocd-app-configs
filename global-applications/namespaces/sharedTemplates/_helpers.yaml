@@ -12,5 +12,12 @@
       {{- end }}
     {{- end }}
   {{- end }}
+  {{- range $namespace, $useDynatrace := $namespaces }}
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ $namespace }}
 
+---  
+  {{- end}}
 {{- end }}
