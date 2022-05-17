@@ -6,19 +6,21 @@
         {{- if eq $environment.name $.envName }}
           {{- if (not $application.dontCreateNamespace) }}
             {{- $namespace := $application.namespaceOverride | default $project.name }}
-            {{- $_ := $project.applications | default list | has $environment.name | set $namespaces $namespace }}
+            {{- $_ := $project.IstioEnvs | default list | has $environment.name | set $namespaces $namespace }}
           {{- end }}  
         {{- end }}
       {{- end }}
     {{- end }}
   {{- end }}
-  {{- range $namespace, $dummyValue := $namespaces }}
+  {{- range $namespace, $useIstio := $namespaces }}
 apiVersion: v1
 kind: Namespace
 metadata:
   name: {{ $namespace }}
+  {{- if $useIstio }}
   labels:
     istio-injection=enabled
+  {{- end }}
 ---  
   {{- end}}
 {{- end }}
