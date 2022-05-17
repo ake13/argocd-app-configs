@@ -54,7 +54,7 @@ projects:
 - name: app1
   description: dsurdu-app1
   applications:
-  - name: app1
+  - name: homer-app
     repoURL: git@github.com:ake13/app1.git
     namespaceOverride: app1
     environments:
@@ -64,7 +64,7 @@ projects:
 - name: app2
   description: dsurdu-app2
   applications:
-  - name: app2
+  - name: alien-app
     repoURL: git@github.com:ake13/app2.git
     namespaceOverride: app2
     environments:
