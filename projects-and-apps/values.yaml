@@ -56,7 +56,7 @@ projects:
   applications:
   - name: app1
     repoURL: git@github.com:ake13/app1.git
-#    namespaceOverride: app1
+    namespaceOverride: app1
     environments:
     - name: dev
 
