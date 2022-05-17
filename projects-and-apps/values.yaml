@@ -44,7 +44,7 @@ projects:
     # Don't create a namespace for this application
     # Usually you want this if the namespace already exists (e.g. you're deploying to a system namespace, or some other preexisting names)
     # or if your application is made of purely non-namespaced resources
-    dontCreateNamespace: false
+    dontCreateNamespace: true
     # List of environments/clusters for which an ArgoCD application (and namespace) will be created
     environments:
 #    - name: test
