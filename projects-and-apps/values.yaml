@@ -50,20 +50,3 @@ projects:
     - name: dev
 
 
-- name: app1
-  description: homer
-  applications:
-  - name: app1
-    repoURL: git@github.com:ake13/app1.git
-    namespaceOverride: app1
-    environments:
-    - name: dev
-
-- name: app2
-  description: aliens
-  applications:
-  - name: app2
-    repoURL: git@github.com:ake13/app2.git
-    namespaceOverride: app2
-    environments:
-    - name: dev
