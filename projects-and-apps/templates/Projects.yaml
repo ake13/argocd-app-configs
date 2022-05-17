@@ -14,11 +14,7 @@ spec:
   sourceRepos:
     - '*'
   # Only permit applications to deploy to their project namespaces in the cluster
-  namespaceResourceWhitelist:
-  - group: 'apps'
-    kind: Deployment
-  - group: 'apps'
-    kind: StatefulSet
+
   destinations:
   {{- range $cluster_index, $cluster := $.Values.clusters }}
     - namespace: {{ if $project.namespaceOverride }}{{ $project.namespaceOverride }}{{ else }}{{ $project.name }}*{{ end }}
