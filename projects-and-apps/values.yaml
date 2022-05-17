@@ -51,7 +51,7 @@ projects:
     - name: dev
 
 
-#- name: app1
+- name: app1
   description: dsurdu-app1
   applications:
   - name: homer
