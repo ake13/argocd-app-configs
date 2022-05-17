@@ -6,17 +6,23 @@
         {{- if eq $environment.name $.envName }}
           {{- if (not $application.dontCreateNamespace) }}
             {{- $namespace := $application.namespaceOverride | default $project.name }}
-            {{- $_ := $namespaces | default list | has $environment.name | set $namespaces $namespace }}
+            {{- $_ := $project.dynatraceEnvs | default list | has $environment.name | set $namespaces $namespace }}
           {{- end }}  
         {{- end }}
       {{- end }}
     {{- end }}
   {{- end }}
-  {{- range $namespace, $dummyValue := $namespaces }}
+  {{- range $namespace, $useDynatrace := $namespaces }}
 apiVersion: v1
 kind: Namespace
 metadata:
   name: {{ $namespace }}
+  {{- if $useDynatrace }}
+  labels:
+    oneagent.dynatrace.com/instance: oneagentapm
+  annotations:
+    oneagent.dynatrace.com/inject: "false"
+  {{- end }}
 ---  
   {{- end}}
 {{- end }}
