@@ -63,7 +63,7 @@ projects:
 - name: app2
   description: dsurdu-app2
   applications:
-  - name: app-test2
+  - name: app2
 #    pathPrefix: 
     repoURL: git@github.com:ake13/app2.git
     namespaceOverride: app2
