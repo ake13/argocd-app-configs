@@ -57,7 +57,7 @@ projects:
   applications:
   - name: homer-app
     #pathPrefix: "someUpperFolder"
-    repoURL: git@github.com:ake13/app1.git
+    repoURL: git@github.com:ake13/app1.git@v1.0
     namespaceOverride: app1
     environments:
     - name: dev
@@ -70,7 +70,7 @@ projects:
   applications:
   - name: alien-app
     #pathPrefix: "someUpperFolder"
-    repoURL: git@github.com:ake13/app2.git
+    repoURL: git@github.com:ake13/app2.git@v1.0
     namespaceOverride: app2
     environments:
     - name: dev
