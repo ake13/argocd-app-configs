@@ -51,7 +51,7 @@ projects:
     - name: dev
 
 
-- name: My Application One
+- name: my-application-one
   description: dsurdu-app2
   applications:
   - name: app1
