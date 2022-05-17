@@ -52,9 +52,10 @@ projects:
 
 
 - name: app1
-  description: dsurdu-app1
+  description: homer-loves-doughnuts
   applications:
   - name: homer-app
+    #pathPrefix: "someUpperFolder"
     repoURL: git@github.com:ake13/app1.git
     namespaceOverride: app1
     environments:
@@ -62,9 +63,10 @@ projects:
 
 
 - name: app2
-  description: dsurdu-app2
+  description: aliens-invented-the-cheese-cake
   applications:
   - name: alien-app
+    #pathPrefix: "someUpperFolder"
     repoURL: git@github.com:ake13/app2.git
     namespaceOverride: app2
     environments:
