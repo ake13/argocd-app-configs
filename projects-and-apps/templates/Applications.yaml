@@ -21,7 +21,7 @@ spec:
       prune: true
       selfHeal: true
     syncOptions:
-    - CreateNamespace=true
+    - "CreateNamespace=true"
   ignoreDifferences: {{ $application.ignoreDifferences | default list | toJson }}
 # End Application: {{ $project.name }}-{{ $application.name }}-{{ $environment.name }}
 ---    
