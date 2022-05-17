@@ -52,6 +52,8 @@ projects:
 
 
 - name: app1
+  IstioEnvs:
+  - dev
   description: homer-loves-doughnuts
   applications:
   - name: homer-app
@@ -63,6 +65,8 @@ projects:
 
 
 - name: app2
+  IstioEnvs:
+  - dev
   description: aliens-invented-the-cheese-cake
   applications:
   - name: alien-app
