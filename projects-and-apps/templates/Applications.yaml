@@ -16,6 +16,8 @@ spec:
   destination:
     server: {{ (get $.Values.clusters $environment.name).server }}
     namespace: {{ if $application.namespaceOverride }}{{ $application.namespaceOverride }}{{ else }}{{ $project.name }}{{ end }}
+      addLabels:
+        istio-injection: "enabled" 
   syncPolicy:
     automated:
       prune: true
