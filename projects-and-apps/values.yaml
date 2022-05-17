@@ -75,3 +75,32 @@ projects:
     namespaceOverride: app2
     environments:
     - name: dev
+
+
+#- name: "infra"
+#  description: "Project for Shared Infrastructure Services"
+#  clusterResourceWhitelistOverrides:
+#  - group: policy
+#    kind: PodSecurityPolicy
+#  - group: "rbac.authorization.k8s.io"
+#    kind: ClusterRole
+#  - group: "rbac.authorization.k8s.io"
+#    kind: ClusterRoleBinding
+#  - group: "apiextensions.k8s.io"
+#    kind: CustomResourceDefinition
+#  - group: "admissionregistration.k8s.io"
+#    kind: ValidatingWebhookConfiguration
+#  - group: "admissionregistration.k8s.io"
+#    kind: MutatingWebhookConfiguration
+#  - group: "cert-manager.io"
+#    kind: ClusterIssuer
+#  namespaceOverride: "'*'"
+#  applications:
+
+#  - name: "my_app"
+#    pathPrefix: "folder_prefix"
+#    repoURL: "https://github.com/my_app.git"
+#    namespaceOverride: my_app
+#    environments:
+#    - name: dev
+#    - name: int
