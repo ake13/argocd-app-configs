@@ -6,7 +6,7 @@
         {{- if eq $environment.name $.envName }}
           {{- if (not $application.dontCreateNamespace) }}
             {{- $namespace := $application.namespaceOverride | default $project.name }}
-            {{- $_ := $project.dynatraceEnvs | default list | has $environment.name | set $namespaces $namespace }}
+            {{- $_ := $project.applications | default list | has $environment.name | set $namespaces $namespace }}
           {{- end }}  
         {{- end }}
       {{- end }}
