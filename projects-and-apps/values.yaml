@@ -10,7 +10,6 @@ clusters:
     server: https://kubernetes.default.svc
     name: minikube
 
-
 # A list of the projects that will be created in ArgoCD, a project will have multiple applications defined under it
 projects:
 # This is the name that will be used directly when creating the ArgoCD Project
