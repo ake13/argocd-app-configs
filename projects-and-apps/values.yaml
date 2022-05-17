@@ -9,9 +9,6 @@ clusters:
   dev:
     server: https://kubernetes.default.svc
     name: minikube
-  int:
-    server: https://kubernetes.default.svc
-    name: minikube
 
 
 # A list of the projects that will be created in ArgoCD, a project will have multiple applications defined under it
@@ -51,12 +48,14 @@ projects:
     # List of environments/clusters for which an ArgoCD application (and namespace) will be created
     environments:
     - name: dev
-    
+
+
+- name: app1
+  description: dsurdu-app1
+  applications:
   - name: app1
-    description: dsurdu-app1
-    applications:
-    - name: app1
-      repoURL: git@github.com:ake13/app1.git
-      namespaceOverride: app1
-      environments:
-      - name: dev
+    repoURL: git@github.com:ake13/app1.git
+    namespaceOverride: app1
+    environments:
+    - name: dev
+
