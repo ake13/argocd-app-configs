@@ -12,17 +12,12 @@
       {{- end }}
     {{- end }}
   {{- end }}
-  {{- range $namespace, $useDynatrace := $namespaces }}
+  {{- range $namespace, $dummyValue := $namespaces }}
 apiVersion: v1
 kind: Namespace
 metadata:
   name: {{ $namespace }}
-  {{- if $useDynatrace }}
-  labels:
-    oneagent.dynatrace.com/instance: oneagentapm
-  annotations:
-    oneagent.dynatrace.com/inject: "false"
-  {{- end }}
+
 ---  
   {{- end}}
 {{- end }}
