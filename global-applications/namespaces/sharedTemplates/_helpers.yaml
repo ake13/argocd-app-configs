@@ -6,13 +6,13 @@
         {{- if eq $environment.name $.envName }}
           {{- if (not $application.dontCreateNamespace) }}
             {{- $namespace := $application.namespaceOverride | default $project.name }}
-            {{- default list | has $environment.name | set $namespaces $namespace }}
+            {{- $_ := $project.OtherEnvs | default list | has $environment.name | set $namespaces $namespace }}
           {{- end }}  
         {{- end }}
       {{- end }}
     {{- end }}
   {{- end }}
-  {{- range $namespace, $useDynatrace := $namespaces }}
+  {{- range $namespace, $useOther := $namespaces }}
 apiVersion: v1
 kind: Namespace
 metadata:
