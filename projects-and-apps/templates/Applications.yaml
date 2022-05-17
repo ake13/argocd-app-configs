@@ -18,10 +18,10 @@ spec:
     namespace: {{ if $application.namespaceOverride }}{{ $application.namespaceOverride }}{{ else }}{{ $project.name }}{{ end }}
   syncPolicy:
     automated:
-      syncOptions:
-      - CreateNamespace=true
       prune: true
       selfHeal: true
+      syncOptions:
+      - CreateNamespace=true
   ignoreDifferences: {{ $application.ignoreDifferences | default list | toJson }}
 # End Application: {{ $project.name }}-{{ $application.name }}-{{ $environment.name }}
 ---    
