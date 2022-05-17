@@ -47,18 +47,17 @@ projects:
     dontCreateNamespace: true
     # List of environments/clusters for which an ArgoCD application (and namespace) will be created
     environments:
-#    - name: test
     - name: dev
 
 
-#- name: app1
-#  description: dsurdu-app1
-#  applications:
-#  - name: app1
-#    repoURL: git@github.com:ake13/app1.git
-#    namespaceOverride: app1
-#    environments:
-#    - name: dev
+- name: app1
+  description: dsurdu-app1
+  applications:
+  - name: app1
+    repoURL: git@github.com:ake13/app1.git
+    namespaceOverride: app1
+    environments:
+    - name: dev
 
 
 #- name: app2
