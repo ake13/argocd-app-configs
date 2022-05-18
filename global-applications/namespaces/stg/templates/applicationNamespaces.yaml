@@ -1,1 +1,1 @@
-{{- include "app.namespaces" (merge (dict "envName" "dev") .) }}
+{{- include "app.namespaces" (merge (dict "envName" "stg") .) }}
