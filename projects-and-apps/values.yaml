@@ -50,28 +50,28 @@ projects:
 
 
 
-- name: app1
+- name: "app1"
   IstioEnvs:
   - dev
-  description: homer-loves-doughnuts
+  description: "homer-loves-doughnuts"
   applications:
-  - name: homer-app
-    #pathPrefix: "someUpperFolder"
-    repoURL: git@github.com:ake13/app1.git
-    namespaceOverride: app1
+  - name: "homer-app"
+    pathPrefix: "k8s"
+    repoURL: "git@github.com:ake13/app1.git"
+    namespaceOverride: "app1"
     environments:
     - name: dev
 
 
-- name: app2
+- name: "app2"
   IstioEnvs:
   - dev
-  description: aliens-invented-the-cheese-cake
+  description: "aliens-invented-the-cheese-cake"
   applications:
-  - name: alien-app
-    #pathPrefix: "someUpperFolder"
-    repoURL: git@github.com:ake13/app2.git
-    namespaceOverride: app2
+  - name: "alien-app"
+    pathPrefix: "k8s"
+    repoURL: "git@github.com:ake13/app2.git"
+    namespaceOverride: "app2"
     environments:
     - name: dev
 
