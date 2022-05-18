@@ -7,7 +7,7 @@ clusters:
     # Name of the cluster (this must match what is defined for the cluster in ArgoCD)
     name: in-cluster
   dev:
-    server: https://kubernetes.default.svc
+    server: https://192.168.39.196:31002
     name: minikube
 
 # A list of the projects that will be created in ArgoCD, a project will have multiple applications defined under it
