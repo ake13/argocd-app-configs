@@ -13,7 +13,7 @@ clusters:
     server: https://192.168.99.112:8443
     name: int-cluster
   stg:
-    server: https://192.168.100.34:8443
+    server: https://192.168.75.34:8443
     name: stg-cluster
 
     
