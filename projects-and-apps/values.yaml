@@ -49,6 +49,7 @@ projects:
     # List of environments/clusters for which an ArgoCD application (and namespace) will be created
     environments:
     - name: dev
+    - name: int
 
 
 
