@@ -31,7 +31,7 @@ In general just copy and paste an existing application/project.
 
 You should only specify environments for the application that an application is actually onboarded to. e.g. you have `project1` with two applications `application1` and `application2`. 
 * `application1` is onboarded to `dev`
-* `application2` is onboarded to `dev` `qal` `pte`
+* `application2` is onboarded to `dev` `int` `stg`
 
 From this the configuration for this project should look something like:
 ```yaml
