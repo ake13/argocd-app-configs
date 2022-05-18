@@ -12,6 +12,11 @@ clusters:
   int:
     server: https://192.168.99.112:8443
     name: int-cluster
+  stg:
+    server: https://192.168.100.34:8443
+    name: stg-cluster
+
+    
 # A list of the projects that will be created in ArgoCD, a project will have multiple applications defined under it
 projects:
 # This is the name that will be used directly when creating the ArgoCD Project
@@ -50,6 +55,7 @@ projects:
     environments:
     - name: dev
     - name: int
+    - name: stg
 
 
 
