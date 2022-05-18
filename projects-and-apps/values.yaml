@@ -63,7 +63,7 @@ projects:
     namespaceOverride: "app1"
     environments:
     - name: dev
-#    - name: int
+    - name: int
 
 
 - name: "app2"
@@ -77,7 +77,7 @@ projects:
     namespaceOverride: "app2"
     environments:
     - name: dev
-#    - name: int
+    - name: int
 
 #- name: "infra"
 #  description: "Project for Shared Infrastructure Services"
