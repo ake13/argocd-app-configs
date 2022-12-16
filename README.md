@@ -1,8 +1,10 @@
-# Define ArgoCD projects and their apps (non-prod)
+# Define ArgoCD projects and their apps (PRODUCTION)
 
 ## What is this?
 
-Repo for management of Argo projects and apps for non-prod environments.
+Repo for management of Argo projects and apps for PRODUCTION environments.
+## Be aware that no application without targetRevision will be allowed in production !!!
+## Any change must go through CAB and a PR process !!!
 
 
 
@@ -39,13 +41,15 @@ From this the configuration for this project should look something like:
   description: "Project 1 description"
   applications:
   - name: "app1"
-    repoURL: "https://github.com/ake13/app1.git"
+    repoURL: "git@github.com:verint-globaldevops/demo-app1.git"
+    targetRevision: v1.0
     environments:
     - name: dev
-  - name: "project2"
-    repoURL: "https://github.com/ake13/app2.git"
+  - name: "app2"
+    repoURL: "git@github.com:verint-globaldevops/demo-app1.git"
+    targetRevision: v1.0
     environments:
-    - name: dev
+    - name: mgmt
     - name: qal
     - name: pte
 ```
@@ -55,15 +59,14 @@ That can be done via configuration like this:
 
 ```yaml
 - name: "my-project"
-  dynatraceEnvs:
-  - dev
-  - pte
   description: "Project for Me"
   applications:
   - ...
 ```
 
 You will still need to use annotations on your workloads in addition to this change.
+
+## 
 
 ## Ignoring Differences
 
@@ -88,13 +91,44 @@ example:
 ```
 
 The `jqPathExpresions` syntax given in the argo documentation will also work if a more complicated ignore is needed.
+## Overrides 
 
+```yaml
+- name: project-name
+  description: "Project descripion"
+  clusterResourceWhitelistOverrides:
+  - group: policy
+    kind: PodSecurityPolicy
+  - group: rbac.authorization.k8s.io
+    kind: ClusterRole
+  - group: rbac.authorization.k8s.io
+    kind: ClusterRoleBinding
+  - group: apiextensions.k8s.io
+    kind: CustomResourceDefinition
+  - group: admissionregistration.k8s.io
+    kind: ValidatingWebhookConfiguration
+  - group: admissionregistration.k8s.io
+    kind: MutatingWebhookConfiguration
+  - group: cert-manager.io
+    kind: ClusterIssuer
+  - group: kyverno.io
+    kind: ClusterPolicy
+  namespaceOverride: "'*'"
+  applications:
+  - name: "app2"
+    repoURL: "git@github.com:verint-globaldevops/demo-app1.git"
+    targetRevision: v1.0
+    environments:
+    - name: dev
+    - name: qal
+    - name: pte
+```
 ## How can I see the resources that Argo will deploy?
 
 Try cloning this repo and running:
 
 ```bash
-cd dbk-sre-argocd-nonprod-apps
+cd argocd-app-configs
 # Build app and project resources for all projects
 helm template projects-and-apps
 ```

@@ -1,0 +1,58 @@
+name: Add namespaces diff to PR
+
+on:
+  pull_request:
+
+jobs:
+  diff:
+    name: Diff namespaces application Helm output
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout this branch
+      uses: actions/checkout@v2
+      with:
+        path: branch
+
+    - name: Checkout default branch
+      uses: actions/checkout@v2
+      with:
+        ref: ${{github.base_ref}}
+        path: base   
+
+    - name: Get tools
+      run: |-
+        wget https://github.com/mikefarah/yq/releases/download/v4.5.1/yq_linux_amd64 --progress=dot:giga -O yq
+        chmod 755 yq      
+
+    - name: Run and comment
+      run: |- 
+        for f in base/global-applications/*; do
+            if [ -d "$f" ]; then
+              if [ $(basename $f) != "sharedTemplates" ]; then
+                CHART_FOLDER=$(echo $f | cut -d'/' -f2-)
+                CHART_ENVIRONMENT=$(echo $f | rev| cut -d'/' -f-1 | rev)
+                echo $CHART_FOLDER
+                echo $CHART_ENVIRONMENT
+                helm template base/${CHART_FOLDER}/namespaces > base.yaml
+                helm template branch/${CHART_FOLDER}/namespaces > branch.yaml
+                ./yq eval -j -I0 '.metadata' base.yaml | grep -v '\-\-\-' | sort | uniq > base_namespaces.txt
+                ./yq eval -j -I0 '.metadata' branch.yaml | grep -v '\-\-\-'  | sort | uniq > branch_namespaces.txt
+                diff base_namespaces.txt branch_namespaces.txt > diff.txt || true
+                
+                echo "The namespaces diff for ${CHART_ENVIRONMENT} is: " > message.md
+                echo '```' >> message.md
+                cat diff.txt  >> message.md
+                echo '```' >> message.md
+    
+                echo -n '{ "body" : ' > message.json
+                cat message.md | jq -aRs . >> message.json
+                echo -n '}' >> message.json
+                cat message.json
+                curl -H "Authorization: Token ${{ secrets.GH_TOKEN }}" -X POST --data-binary "@message.json" "https://api.github.com/repos/${GITHUB_REPOSITORY}/issues/${{ github.event.number }}/comments"
+              fi
+            fi
+        done
+
+# to fix                curl -H "Authorization: Token ${{ secrets.GITHUB_TOKEN }}" -X POST --data-binary "@message.json" "https://api.github.com/repos/${GITHUB_REPOSITORY}/issues/${{ github.event.number }}/comments"

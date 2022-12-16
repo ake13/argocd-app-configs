@@ -11,8 +11,12 @@ spec:
   project: {{ $project.name }}
   source:
     repoURL: {{ $application.repoURL }}
-    targetRevision: HEAD
-    path: {{ if $application.pathPrefix }}{{ $application.pathPrefix }}/{{ $environment.name }}{{ else }}{{ $environment.name }}{{ end }}
+    targetRevision: {{ if $application.targetRevision }}{{ $application.targetRevision }}{{ else }}HEAD{{ end }}
+    path: {{ if $application.pathPrefix }}{{ $application.pathPrefix }}/{{ $environment.name }}/{{ $application.name }}{{ else }}{{ $project.name }}{{ end }}
+{{- if $application.helm }}
+    helm:
+{{ toYaml $application.helm | indent 6 }}
+{{- end }}
   destination:
     server: {{ (get $.Values.clusters $environment.name).server }}
     namespace: {{ if $application.namespaceOverride }}{{ $application.namespaceOverride }}{{ else }}{{ $project.name }}{{ end }}
@@ -20,11 +24,9 @@ spec:
     automated:
       prune: true
       selfHeal: true
-#    syncOptions:
-#    - "CreateNamespace=true"
   ignoreDifferences: {{ $application.ignoreDifferences | default list | toJson }}
 # End Application: {{ $project.name }}-{{ $application.name }}-{{ $environment.name }}
 ---    
-{{- end }}    
+{{- end }}
 {{- end }}
 {{- end }}

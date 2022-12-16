@@ -1,0 +1,18 @@
+name: Validate Helm Templates
+
+on:
+  push:
+
+jobs:
+  validate:
+    name: Validate Helm
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Run Helm Template
+      run: |- 
+        helm template projects-and-apps

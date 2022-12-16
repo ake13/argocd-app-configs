@@ -6,17 +6,11 @@ clusters:
     server: https://kubernetes.default.svc
     # Name of the cluster (this must match what is defined for the cluster in ArgoCD)
     name: in-cluster
-  dev:
-    server: https://192.168.98.196:8443
-    name: dev-cluster
-  int:
-    server: https://192.168.99.112:8443
-    name: int-cluster
-  stg:
-    server: https://192.168.75.34:8443
-    name: stg-cluster
+  mgmt:
+    server: https://kubernetes.default.svc
+    name: tony-cluster
 
-    
+
 # A list of the projects that will be created in ArgoCD, a project will have multiple applications defined under it
 projects:
 # This is the name that will be used directly when creating the ArgoCD Project
@@ -33,17 +27,17 @@ projects:
   # By default all namespaces for applications must begin with the name of the project
   # If you want applications in this project be able to deploy to any namespace the value must be literal "'*'"
   # OPTIONAL
-  namespaceOverride: "'*'"
+  namespaceOverride: "'*'" 
   # A list of the applications i.e. a link from source to destinations
   # An ArgoCD application is created per application environment an application with no environments specified will not have any effect
   applications:
     # This name is used as part of the ArgoCD application name, which will be of the format:
     # {project.name}-{application.name}-{environment.name}
-  - name: namespaces
+  - name: 'namespaces'
     # By default we look for environment folders in the root of the repository e.g. /dev /qal
     # This optional key allows you put application environment definitions into folders e.g. /pathPrefix/dev /pathPrefix/qal
     # OPTIONAL
-    pathPrefix: global-applications/namespaces
+    pathPrefix: global-applications
     # Specifies the repository that contains the deployment resources for this application
     # APPLICATION SPECIFIC NOTE: The namespaces "application" depends on this values.yaml file, so it co-exists in this repo
     repoURL: git@github.com:ake13/argocd-app-configs.git
@@ -53,66 +47,34 @@ projects:
     dontCreateNamespace: true
     # List of environments/clusters for which an ArgoCD application (and namespace) will be created
     environments:
-    - name: dev
-    - name: int
-    - name: stg
+    - name: tony-cluster
 
 
 
-- name: "app1"
-  IstioEnvs:
-  - dev
-  description: "homer-loves-doughnuts"
-  applications:
-  - name: "homer-app"
-    pathPrefix: "k8s"
-    repoURL: "git@github.com:ake13/app1.git"
-    namespaceOverride: "app1"
-    environments:
-    - name: dev
-    - name: int
-    - name: stg
+# #### App1 and app2 belonging to "Team 1" will be deployed on demo namespace from the same repository
+# - name: demo
+#   description: "Demo app1 and app2"
+#   applications:
+#     - name: app1
+#       pathPrefix: apps
+#       repoURL: git@github.com:verint-globaldevops/demo-app1.git
+#       environments:
+#         - name: tony-cluster
+
+#     - name: app2
+#       pathPrefix: apps
+#       repoURL: git@github.com:verint-globaldevops/demo-app1.git
+#       environments:
+#         - name: tony-cluster
+
+# # #### App3 belonging to "Team 2" will be deployed on demo3 namespace from another repository
+# - name: demo3
+#   description: "Demo app3"
+#   applications:
+#     - name: app3
+#       pathPrefix: apps
+#       repoURL: git@github.com:verint-globaldevops/demo-app3.git
+#       environments:
+#         - name: tony-cluster
 
 
-
-- name: "app2"
-  IstioEnvs:
-  - dev
-  description: "aliens-invented-the-cheese-cake"
-  applications:
-  - name: "alien-app"
-    pathPrefix: "k8s"
-    repoURL: "git@github.com:ake13/app2.git"
-    namespaceOverride: "app2"
-    environments:
-    - name: dev
-    - name: int
-    - name: stg
-
-#- name: "infra"
-#  description: "Project for Shared Infrastructure Services"
-#  clusterResourceWhitelistOverrides:
-#  - group: policy
-#    kind: PodSecurityPolicy
-#  - group: "rbac.authorization.k8s.io"
-#    kind: ClusterRole
-#  - group: "rbac.authorization.k8s.io"
-#    kind: ClusterRoleBinding
-#  - group: "apiextensions.k8s.io"
-#    kind: CustomResourceDefinition
-#  - group: "admissionregistration.k8s.io"
-#    kind: ValidatingWebhookConfiguration
-#  - group: "admissionregistration.k8s.io"
-#    kind: MutatingWebhookConfiguration
-#  - group: "cert-manager.io"
-#    kind: ClusterIssuer
-#  namespaceOverride: "'*'"
-#  applications:
-
-#  - name: "my_app"
-#    pathPrefix: "folder_prefix"
-#    repoURL: "https://github.com/my_app.git"
-#    namespaceOverride: my_app
-#    environments:
-#    - name: dev
-#    - name: int

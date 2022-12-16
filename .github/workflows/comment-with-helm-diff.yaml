@@ -1,0 +1,29 @@
+name: Add diff to PR
+
+on:
+  pull_request:
+
+jobs:
+  diff:
+    name: Diff Helm output
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout this branch
+      uses: actions/checkout@v2
+      with:
+        path: branch
+
+    - name: Checkout default branch
+      uses: actions/checkout@v2
+      with:
+        ref: ${{github.base_ref}}
+        path: base   
+
+    - name: setup Helm3
+      run: |
+        curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+        chmod 700 get_helm.sh
+        ./get_helm.sh
+        helm plugin install https://github.com/databus23/helm-diff
