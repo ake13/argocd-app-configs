@@ -1,12 +1,6 @@
-# Define ArgoCD projects and their apps (PRODUCTION)
+# Define ArgoCD projects and their apps
 
 ## What is this?
-
-Repo for management of Argo projects and apps for PRODUCTION environments.
-## Be aware that no application without targetRevision will be allowed in production !!!
-## Any change must go through CAB and a PR process !!!
-
-
 
 This repo consists of Helm resource definitions that allow us to on-board/off-board projects, applications and what environments (clusters) those applications are deployed to.
 
